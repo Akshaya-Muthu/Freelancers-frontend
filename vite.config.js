@@ -8,6 +8,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: process.env.PORT || 5173,
-    allowedHosts: 'freelancers-frontend.onrender.com'
+    allowedHosts: 'https://freelancers-frontend.onrender.com'
   }
 })
