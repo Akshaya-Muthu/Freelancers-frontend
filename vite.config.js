@@ -5,4 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   
   plugins: [react(),tailwindcss()],
+  allowedHosts: [
+      'freelancers-frontend.onrender.com' // add your Render domain here
+    ]
 })
