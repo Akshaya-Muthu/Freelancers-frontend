@@ -17,6 +17,9 @@ import TaskDetails from './pages/TaskDetails';
 import Dashboard from './pages/Dashboard';
 import ClientProfile from './pages/ClientProfile';
 import HireFreelancer from './pages/HireFreelancer';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from "./pages/ResetPassword";
+
 
 const App = () => {
   return (
@@ -34,7 +37,9 @@ const App = () => {
         <Route path="/my-bids" element={<MyBids />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/clientprofile" element={<ClientProfile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/hirefreelancer" element={<HireFreelancer />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
        <Route 
   path="/admin/dashboard" 
   element={
