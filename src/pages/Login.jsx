@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
@@ -21,33 +20,33 @@ function Login() {
     });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.post('https://freelancer-backend-qu3g.onrender.com/api/auth/login', formData, {
-      withCredentials: true
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        'https://freelancer-backend-qu3g.onrender.com/api/auth/login',
+        formData,
+        { withCredentials: true }
+      );
 
-    if (res.status === 200) {
-      const userData = res.data.user; 
-      const authToken = res.data.token;
+      if (res.status === 200) {
+        const userData = res.data.user; 
+        const authToken = res.data.token;
 
-      
-      sessionStorage.setItem('user', JSON.stringify(userData));
-      sessionStorage.setItem('token', authToken);
+        sessionStorage.setItem('user', JSON.stringify(userData));
+        sessionStorage.setItem('token', authToken);
 
-      login(userData, authToken); // update context state
-      toast.success('Login successful!');
-      setFormData({ email: '', password: '' });
-      setTimeout(() => {
-        navigate('/');
-      }, 500);
+        login(userData, authToken); 
+        toast.success('Login successful!');
+        setFormData({ email: '', password: '' });
+        setTimeout(() => {
+          navigate('/');
+        }, 500);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Login failed. Please try again.');
     }
-  } catch (error) {
-    toast.error(error.response?.data?.message || 'Login failed. Please try again.');
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -78,11 +77,9 @@ function Login() {
             <span className="text-lg font-semibold text-gray-800">FreelancePro</span>
           </div>
 
-    
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
           <p className="text-gray-600 mb-8">Enter your credentials to access your account</p>
 
-        
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -108,6 +105,15 @@ function Login() {
                 value={formData.password}
                 required
               />
+              {/* Forgot password link */}
+              <div className="text-right mt-2">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-emerald-600 hover:underline cursor-pointer"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
             </div>
 
             <button
@@ -117,7 +123,6 @@ function Login() {
               Login
             </button>
           </form>
-
 
           <p className="text-center text-gray-600 mt-6">
             Don’t have an account?{' '}
